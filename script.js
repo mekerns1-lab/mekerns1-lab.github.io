@@ -170,3 +170,80 @@ async function fetchLiveSportsAPI(sportKey, targetTeamCode, outputElementId) {
         fallbackLocalAPIEngine(sportKey, targetTeamCode, outputElementId);
     }
 }
+// =========================================================================
+// ENTERTAINMENT HUB: DAILY TRIVIA PLATFORM & STREAK TRACKER
+// =========================================================================
+const triviaDatabase = [
+    {
+        question: "Which NFL quarterback holds the record for the most Super Bowl rings in league history?",
+        options: ["Peyton Manning", "Tom Brady", "Patrick Mahomes", "Joe Montana"],
+        correct: 1,
+        fact: "Tom Brady won 7 Super Bowls across his legendary career (6 with New England, 1 with Tampa Bay)."
+    },
+    {
+        question: "Who is the NBA's all-time leading scorer, passing Kareem Abdul-Jabbar's long-standing record?",
+        options: ["Michael Jordan", "Kobe Bryant", "LeBron James", "Kevin Durant"],
+        correct: 2,
+        fact: "LeBron James shattered the scoring record and continues to build on it as the all-time leader."
+    },
+    {
+        question: "In baseball, what rare historic achievement occurs when a pitcher gets 27 batters out in a row without anyone reaching base?",
+        options: ["A No-Hitter", "A Complete Game", "An Immaculate Inning", "A Perfect Game"],
+        correct: 3,
+        fact: "A Perfect Game requires exactly 27 up, 27 down, with zero walks, hits, or errors allowed."
+    }
+];
+
+let currentDailyQuestion = null;
+let hasAnsweredToday = false;
+
+function initDailyTrivia() {
+    // Select a question automatically based on the current calendar day
+    const dayOfYear = new Date().getDate();
+    const questionIndex = dayOfYear % triviaDatabase.length;
+    currentDailyQuestion = triviaDatabase[questionIndex];
+
+    // Load saved win streak stats out of browser cache
+    const savedStreak = localStorage.getItem('sportsTriviaStreak') || 0;
+    document.getElementById('trivia-streak').innerText = savedStreak;
+
+    // Render text options directly into buttons
+    document.getElementById('trivia-question').innerText = currentDailyQuestion.question;
+    for (let i = 0; i < 4; i++) {
+        document.getElementById(`opt-${i}`).innerText = currentDailyQuestion.options[i];
+    }
+}
+
+function submitTriviaAnswer(selectedIndex) {
+    if (hasAnsweredToday) return; // Freeze panel inputs once submitted
+    hasAnsweredToday = true;
+
+    const feedbackBox = document.getElementById('trivia-feedback');
+    const correctIdx = currentDailyQuestion.correct;
+    let currentStreak = parseInt(localStorage.getItem('sportsTriviaStreak') || 0);
+
+    feedbackBox.style.display = "block";
+
+    // Highlight options visually
+    if (selectedIndex === correctIdx) {
+        document.getElementById(`opt-${selectedIndex}`).classList.add('trivia-correct');
+        currentStreak++;
+        feedbackBox.innerHTML = `🎉 <strong>CORRECT!</strong> Excellent read. ${currentDailyQuestion.fact}`;
+        feedbackBox.style.background = "rgba(64, 145, 108, 0.15)";
+    } else {
+        document.getElementById(`opt-${selectedIndex}`).classList.add('trivia-wrong');
+        document.getElementById(`opt-${correctIdx}`).classList.add('trivia-correct');
+        currentStreak = 0; // Break win streak
+        feedbackBox.innerHTML = `❌ <strong>OUT OF BOUNDS!</strong> Incorrect option. ${currentDailyQuestion.fact}`;
+        feedbackBox.style.background = "rgba(214, 40, 40, 0.15)";
+    }
+
+    // Save calculation logs cleanly back to localStorage
+    localStorage.setItem('sportsTriviaStreak', currentStreak);
+    document.getElementById('trivia-streak').innerText = currentStreak;
+}
+
+// Attach the game initialization routine to your master DOM launcher hook
+window.addEventListener('DOMContentLoaded', () => {
+    initDailyTrivia();
+});
