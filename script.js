@@ -247,3 +247,60 @@ function submitTriviaAnswer(selectedIndex) {
 window.addEventListener('DOMContentLoaded', () => {
     initDailyTrivia();
 });
+// =========================================================================
+// ENTERTAINMENT HUB: HOT TAKE GENERATOR & TEXT COMBINATION ENGINE
+// =========================================================================
+const hotTakeModifiers = [
+    "Unpopular opinion, but",
+    "Let's be completely honest:",
+    "Whether you want to admit it or not,",
+    "I've seen enough:",
+    "It's time to face reality:",
+    "Unchecked facts right here:"
+];
+
+const hotTakeClaims = [
+    "is completely overrated and living entirely on past glory.",
+    "could be thoroughly out-played by a middle school squad wearing flip-flops.",
+    "is mathematically guaranteed to finish dead last in the division standings.",
+    "has a coaching playbook thinner than a restaurant napkin.",
+    "needs to completely wipe the roster and start a total rebuild immediately.",
+    "is playing some of the most unwatchable, uninspired sports in modern history."
+];
+
+function generateHotTake() {
+    // Dynamically grab whatever custom team names are selected right now
+    const currentFB = document.getElementById('football-select').options[document.getElementById('football-select').selectedIndex].text;
+    const currentBB = document.getElementById('basketball-select').options[document.getElementById('basketball-select').selectedIndex].text;
+    const currentBS = document.getElementById('baseball-select').options[document.getElementById('baseball-select').selectedIndex].text;
+    
+    const activeTeamsArray = [currentFB, currentBB, currentBS];
+
+    // Pick a random index out of our text structural arrays
+    const randomMod = hotTakeModifiers[Math.floor(Math.random() * hotTakeModifiers.length)];
+    const randomTeam = activeTeamsArray[Math.floor(Math.random() * activeTeamsArray.length)];
+    const randomClaim = hotTakeClaims[Math.floor(Math.random() * hotTakeClaims.length)];
+
+    // Combine parameters cleanly into a single string bubble
+    const completeTake = `"${randomMod} the ${randomTeam} ${randomClaim}"`;
+    
+    document.getElementById('hottake-text').innerText = completeTake;
+    
+    // Reset copy confirmation notification if it was showing
+    document.getElementById('copy-toast').style.display = "none";
+}
+
+function copyHotTake() {
+    const takeText = document.getElementById('hottake-text').innerText;
+    
+    // Use the native browser navigator API to push string to system clipboard
+    navigator.clipboard.writeText(takeText).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.style.display = "block";
+        
+        // Hide notification alert automatically after 3 seconds
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000);
+    });
+}
