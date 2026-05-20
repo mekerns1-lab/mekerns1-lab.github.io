@@ -135,3 +135,21 @@ function toggleTheme() {
 window.addEventListener('DOMContentLoaded', () => {
     loadSavedUserPreferences();
 });
+/* Skeleton Loader Animation Effects */
+.skeleton-pulse {
+    background: linear-gradient(90deg, var(--card-bg) 25%, var(--border-color) 50%, var(--card-bg) 75%);
+    background-size: 200% 100%;
+    animation: loading-pulse 1.5s infinite linear;
+    color: transparent !important;
+    border-radius: 4px;
+}
+
+@keyframes loading-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Global focus states for better accessibility */
+select:focus, input:focus {
+    outline: 2px solid var(--accent-color);
+}
