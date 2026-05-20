@@ -159,3 +159,52 @@ select:focus, input:focus {
     border-color: #d62828 !important;
     color: #fff !important;
 }
+/* Hot Take Generator Layout Styles */
+.hottake-container {
+    border: 2px dashed #d62828;
+    background: linear-gradient(145deg, var(--card-bg), rgba(214, 40, 40, 0.03));
+}
+.hottake-badge {
+    background: #d62828;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+.hottake-bubble {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    position: relative;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+#hottake-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+.hottake-actions {
+    display: flex;
+    gap: 10px;
+}
+.copy-btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.copy-alert {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #40916c;
+    font-weight: 700;
+    text-align: center;
+}
