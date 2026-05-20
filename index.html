@@ -220,3 +220,55 @@
         <div id="copy-toast" class="copy-alert" style="display: none;">Copied to clipboard! Go destroy the group chat.</div>
     </div>
 </section>
+<section id="analytics-compare" class="section-block">
+    <h2 class="section-title">Head-to-Head Analytics Engine</h2>
+    <div class="preference-card comparison-container">
+        <p class="section-desc" style="margin-bottom: 20px;">Select any two teams across leagues to run a deep-dive data comparison matrix:</p>
+        
+        <div class="compare-selectors">
+            <select id="compare-team-1" onchange="runTeamComparison()">
+                <option value="sea" selected>Seattle Seahawks (NFL)</option>
+                <option value="kc">Kansas City Chiefs (NFL)</option>
+                <option value="okc">Oklahoma City Thunder (NBA)</option>
+                <option value="bos">Boston Celtics (NBA)</option>
+                <option value="lad">Los Angeles Dodgers (MLB)</option>
+                <option value="nyy">New York Yankees (MLB)</option>
+            </select>
+            <span class="vs-text">ANALYZE</span>
+            <select id="compare-team-2" onchange="runTeamComparison()">
+                <option value="sea">Seattle Seahawks (NFL)</option>
+                <option value="kc" selected>Kansas City Chiefs (NFL)</option>
+                <option value="okc">Oklahoma City Thunder (NBA)</option>
+                <option value="bos">Boston Celtics (NBA)</option>
+                <option value="lad">Los Angeles Dodgers (MLB)</option>
+                <option value="nyy">New York Yankees (MLB)</option>
+            </select>
+        </div>
+
+        <div class="matrix-display">
+            <div class="matrix-row">
+                <div class="matrix-label">Power Index Rating</div>
+                <div class="progress-track">
+                    <div id="bar-power-1" class="progress-fill fill-team1" style="width: 50%"></div>
+                    <div id="bar-power-2" class="progress-fill fill-team2" style="width: 50%"></div>
+                </div>
+                <div class="matrix-scores">
+                    <span id="score-power-1" class="t1-txt">50</span> vs <span id="score-power-2" class="t2-txt">50</span>
+                </div>
+            </div>
+
+            <div class="matrix-row">
+                <div class="matrix-label">Offensive Efficiency Mapping</div>
+                <div class="progress-track">
+                    <div id="bar-offense-1" class="progress-fill fill-team1" style="width: 50%"></div>
+                    <div id="bar-offense-2" class="progress-fill fill-team2" style="width: 50%"></div>
+                </div>
+                <div class="matrix-scores">
+                    <span id="score-offense-1" class="t1-txt">50</span> vs <span id="score-offense-2" class="t2-txt">50</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="analytics-verdict" class="prediction-output">Awaiting data computation matrix...</div>
+    </div>
+</section>
