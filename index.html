@@ -201,3 +201,22 @@
         <div id="trivia-feedback" class="prediction-output" style="display: none;"></div>
     </div>
 </section>
+<section id="hottake-generator" class="section-block">
+    <h2 class="section-title">The Trash-Talk Engine</h2>
+    <div class="game-card-box hottake-container">
+        <div class="hottake-header">
+            <span class="hottake-badge">🌶️ UNPOPULAR OPINION</span>
+        </div>
+        
+        <div class="hottake-bubble">
+            <p id="hottake-text">"Click the button below to unleash an absolute scorching sports take."</p>
+        </div>
+        
+        <div class="hottake-actions">
+            <button class="action-submit-btn" onclick="generateHotTake()">🔥 Generate Hot Take</button>
+            <button class="icon-btn copy-btn" onclick="copyHotTake()">📋 Copy Take</button>
+        </div>
+        
+        <div id="copy-toast" class="copy-alert" style="display: none;">Copied to clipboard! Go destroy the group chat.</div>
+    </div>
+</section>
