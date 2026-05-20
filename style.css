@@ -97,3 +97,65 @@ footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 0.8rem;
 select:focus, input:focus {
     outline: 2px solid var(--accent-color);
 }
+/* Daily Trivia Layout Upgrades */
+.trivia-container {
+    border: 2px solid var(--border-color);
+    position: relative;
+}
+.trivia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.trivia-badge {
+    background: #f77f00;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.streak-counter {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+.trivia-q-text {
+    margin-bottom: 20px;
+    font-size: 1.15rem;
+    line-height: 1.4;
+}
+.trivia-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 15px;
+}
+.trivia-btn {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+.trivia-btn:hover {
+    border-color: var(--accent-color);
+    background: rgba(76, 201, 240, 0.05);
+    transform: translateY(-1px);
+}
+/* Answer Feedback Interactivity States */
+.trivia-correct {
+    background: #1b4332 !important;
+    border-color: #40916c !important;
+    color: #fff !important;
+}
+.trivia-wrong {
+    background: #5c1313 !important;
+    border-color: #d62828 !important;
+    color: #fff !important;
+}
