@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gridiron & Beyond | Multi-Sport Central</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">SPORTS CENTRAL</div>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#news-feed">News</a>
+            <a href="#scores-dashboard">Scores</a>
+            <a href="#fantasy-zone">Fantasy</a>
+        </nav>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker__item">🏈 NFL: Teams wrap up mandatory minicamps as training camp approaches</div>
+            <div class="ticker__item">🏀 NBA: Playoff intensity reaches a fever pitch ahead of the Finals</div>
+            <div class="ticker__item">⚾ MLB: Division races heat up as summer baseball hits full swing</div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <main class="main-content">
+            
+            <section id="news-feed" class="section-block">
+                <div class="sport-tabs">
+                    <button class="tab-btn active" onclick="switchSport('all')">All Sports</button>
+                    <button class="tab-btn" onclick="switchSport('football')">🏈 Football</button>
+                    <button class="tab-btn" onclick="switchSport('basketball')">🏀 Basketball</button>
+                    <button class="tab-btn" onclick="switchSport('baseball')">⚾ Baseball</button>
+                </div>
+
+                <h2 class="section-title" id="feed-title">Top Headlines</h2>
+                
+                <div class="headlines-grid">
+                    <div class="sport-card football-item">
+                        <div class="sport-badge fb-badge">FOOTBALL</div>
+                        <h3>Gridiron Offseason Strategies Lock In</h3>
+                        <p class="meta">NFL Update</p>
+                        <p>Coaches are finalizing depth charts following mandatory minicamps. Rookies are making major waves as teams prep for the grueling summer training camp schedule.</p>
+                    </div>
+
+                    <div class="sport-card basketball-item">
+                        <div class="sport-badge bb-badge">BASKETBALL</div>
+                        <h3>Championship Dreams: The Finals Road Check</h3>
+                        <p class="meta">NBA Update</p>
+                        <p>The remaining postseason teams are leaning heavily on tactical defensive shifts and perimeter shooting to punch their ticket to the ultimate championship stage.</p>
+                    </div>
+
+                    <div class="sport-card baseball-item">
+                        <div class="sport-badge bs-badge">BASEBALL</div>
+                        <h3>Summer Heat: Midseason Pennant Races Ignite</h3>
+                        <p class="meta">MLB Update</p>
+                        <p>With June arriving, pitching rotations are being pushed to the absolute limit. Aces are dominating the strike zone as tight divisional battles begin to take shape.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="scores-dashboard" class="section-block">
+                <h2 class="section-title">Today's Featured Matchups</h2>
+                <div class="scores-list">
+                    <div class="score-row football-item">
+                        <span class="game-tag tag-fb">NFL</span>
+                        <div class="matchup-info">Dallas Cowboys <span class="vs">vs</span> New York Giants</div>
+                        <span class="game-meta">July Preseason Schedule</span>
+                    </div>
+                    <div class="score-row basketball-item">
+                        <span class="game-tag tag-bb">NBA</span>
+                        <div class="matchup-info">Boston Celtics 108 <span class="vs">FT</span> Los Angeles Lakers 102</div>
+                        <span class="game-meta">Final Score</span>
+                    </div>
+                    <div class="score-row baseball-item">
+                        <span class="game-tag tag-bs">MLB</span>
+                        <div class="matchup-info">New York Yankees <span class="vs">at</span> Boston Red Sox</div>
+                        <span class="game-meta">7:05 PM ET</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fantasy-zone" class="section-block">
+                <h2 class="section-title">Fantasy Analyst Radar</h2>
+                <div class="fantasy-grid">
+                    <div class="fantasy-box football-item">
+                        <h4>Football Stock Watch 🏈</h4>
+                        <p>Target backup running backs early in drafts; minicamp snaps hint at expanded dual-threat roles this fall.</p>
+                    </div>
+                    <div class="fantasy-box baseball-item">
+                        <h4>Baseball Waiver Wire ⚾</h4>
+                        <p>Snatch up high-strikeout relief pitchers displaying increased velocity to boost your weekly strikeout margins.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <aside class="sidebar">
+            <div class="widget">
+                <h3>Pulse Fan Poll</h3>
+                <p class="poll-question">Which sport are you following closest right now?</p>
+                <form id="multiPoll" onsubmit="handlePollSubmit(event)">
+                    <label class="poll-option">
+                        <input type="radio" name="main-sport" value="fb" checked> Football Offseason
+                    </label>
+                    <label class="poll-option">
+                        <input type="radio" name="main-sport" value="bb"> Basketball Postseason
+                    </label>
+                    <label class="poll-option">
+                        <input type="radio" name="main-sport" value="bs"> Baseball Summer Run
+                    </label>
+                    <button type="submit" class="poll-btn">Cast Vote</button>
+                </form>
+                <div id="pollSuccess" class="poll-response" style="display:none;">
+                    <p class="success-alert">✓ Vote Saved! Fans are currently tracking Basketball postseason highest (52%).</p>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Major Sporting Calendar</h3>
+                <ul class="calendar-timeline">
+                    <li><span class="cal-badge fb-badge">FB</span> NFL Training Camps</li>
+                    <li><span class="cal-badge bb-badge">BB</span> Basketball Draft Week</li>
+                    <li><span class="cal-badge bs-badge">BS</span> Baseball Midseason Classic</li>
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sports Central Hub. Comprehensive coverage across all leagues.</p>
+    </footer>
+
+    <script>
+        function switchSport(sportType) {
+            // Manage Active Class for Navigation Buttons
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Dynamic Headline Title Adjustment
+            const title = document.getElementById('feed-title');
+            if(sportType === 'all') title.innerText = "Top Headlines";
+            else title.innerText = sportType.toUpperCase() + " Headliners";
+
+            // List of element collections to filter
+            const targetClasses = ['.sport-card', '.score-row', '.fantasy-box'];
+
+            targetClasses.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(item => {
+                    if (sportType === 'all') {
+                        item.style.display = 'block';
+                        // Re-align display flex for score rows specifically
+                        if(selector === '.score-row') item.style.display = 'flex';
+                    } else if (item.classList.contains(sportType + '-item')) {
+                        item.style.display = 'block';
+                        if(selector === '.score-row') item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function handlePollSubmit(e) {
+            e.preventDefault();
+            document.getElementById('multiPoll').style.display = 'none';
+            document.getElementById('pollSuccess').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
