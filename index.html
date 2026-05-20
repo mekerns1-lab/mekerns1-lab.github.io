@@ -181,3 +181,23 @@
 <meta property="og:title" content="Sports Central | Live Interactive Hub">
 <meta property="og:description" content="Sync your favorite NFL, NBA, and MLB teams with live API data streams.">
 <meta property="og:type" content="website">
+<section id="trivia-game" class="section-block">
+    <h2 class="section-title">Daily Sports Trivia</h2>
+    <div class="game-card-box trivia-container">
+        <div class="trivia-header">
+            <span class="trivia-badge">⚡ CHALLENGE</span>
+            <div class="streak-counter">🔥 Win Streak: <span id="trivia-streak">0</span> Days</div>
+        </div>
+        
+        <h3 id="trivia-question" class="trivia-q-text">Loading today's sports brain-buster...</h3>
+        
+        <div class="trivia-options-grid">
+            <button class="trivia-btn" id="opt-0" onclick="submitTriviaAnswer(0)"></button>
+            <button class="trivia-btn" id="opt-1" onclick="submitTriviaAnswer(1)"></button>
+            <button class="trivia-btn" id="opt-2" onclick="submitTriviaAnswer(2)"></button>
+            <button class="trivia-btn" id="opt-3" onclick="submitTriviaAnswer(3)"></button>
+        </div>
+        
+        <div id="trivia-feedback" class="prediction-output" style="display: none;"></div>
+    </div>
+</section>
