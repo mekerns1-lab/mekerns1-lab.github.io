@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Sports Central | Live API Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">SPORTS CENTRAL</div>
+        <nav>
+            <a href="#" class="active">Dashboard</a>
+            <a href="#bracket-section">Playoff Bracket</a>
+            <button id="theme-toggle" class="icon-btn" onclick="toggleTheme()">🌓 Mode</button>
+        </nav>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker" id="live-api-ticker">
+            <div class="ticker__item">🔄 Connecting to live sports database servers...</div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <main class="main-content">
+            
+            <section class="section-block preference-card">
+                <h2 class="section-title">Select Your Core Teams</h2>
+                <p class="section-desc">Choose your teams below. The site automatically syncs live statistics via API data streams and saves your choices.</p>
+                
+                <div class="selector-group">
+                    <div class="selector-box">
+                        <label for="football-select">🏈 Your NFL Team:</label>
+                        <select id="football-select" onchange="updateCustomTeams()">
+                            <option value="buf">Buffalo Bills</option><option value="mia">Miami Dolphins</option>
+                            <option value="ne">New England Patriots</option><option value="nyj">New York Jets</option>
+                            <option value="bal">Baltimore Ravens</option><option value="cin">Cincinnati Bengals</option>
+                            <option value="cle">Cleveland Browns</option><option value="pit">Pittsburgh Steelers</option>
+                            <option value="hou">Houston Texans</option><option value="ind">Indianapolis Colts</option>
+                            <option value="jax">Jacksonville Jaguars</option><option value="ten">Tennessee Titans</option>
+                            <option value="den">Denver Broncos</option><option value="kc">Kansas City Chiefs</option>
+                            <option value="lv">Las Vegas Raiders</option><option value="lac">Los Angeles Chargers</option>
+                            <option value="dal">Dallas Cowboys</option><option value="nyg">New York Giants</option>
+                            <option value="phi">Philadelphia Eagles</option><option value="wsh">Washington Commanders</option>
+                            <option value="chi">Chicago Bears</option><option value="det">Detroit Lions</option>
+                            <option value="gb">Green Bay Packers</option><option value="min">Minnesota Vikings</option>
+                            <option value="atl">Atlanta Falcons</option><option value="car">Carolina Panthers</option>
+                            <option value="no">New Orleans Saints</option><option value="tb">Tampa Bay Buccaneers</option>
+                            <option value="ari">Arizona Cardinals</option><option value="lar">Los Angeles Rams</option>
+                            <option value="sf">San Francisco 49ers</option><option value="sea" selected>Seattle Seahawks</option>
+                        </select>
+                    </div>
+
+                    <div class="selector-box">
+                        <label for="basketball-select">🏀 Your NBA Team:</label>
+                        <select id="basketball-select" onchange="updateCustomTeams()">
+                            <option value="bos">Boston Celtics</option><option value="bkn">Brooklyn Nets</option>
+                            <option value="ny">New York Knicks</option><option value="phi">Philadelphia 76ers</option>
+                            <option value="tor">Toronto Raptors</option><option value="chi">Chicago Bulls</option>
+                            <option value="cle">Cleveland Cavaliers</option><option value="det">Detroit Pistons</option>
+                            <option value="ind">Indiana Pacers</option><option value="mil">Milwaukee Bucks</option>
+                            <option value="atl">Atlanta Hawks</option><option value="cha">Charlotte Hornets</option>
+                            <option value="mia">Miami Heat</option><option value="orl">Orlando Magic</option>
+                            <option value="was">Washington Wizards</option><option value="den">Denver Nuggets</option>
+                            <option value="min">Minnesota Timberwolves</option><option value="okc" selected>Oklahoma City Thunder</option>
+                            <option value="por">Portland Trail Blazers</option><option value="utah">Utah Jazz</option>
+                            <option value="gs">Golden State Warriors</option><option value="lac">Los Angeles Clippers</option>
+                            <option value="lal">Los Angeles Lakers</option><option value="phx">Phoenix Suns</option>
+                            <option value="sac">Sacramento Kings</option><option value="dal">Dallas Mavericks</option>
+                            <option value="hou">Houston Rockets</option><option value="mem">Memphis Grizzlies</option>
+                            <option value="no">New Orleans Pelicans</option><option value="sa">San Antonio Spurs</option>
+                        </select>
+                    </div>
+
+                    <div class="selector-box">
+                        <label for="baseball-select">⚾ Your MLB Team:</label>
+                        <select id="baseball-select" onchange="updateCustomTeams()">
+                            <option value="bal">Baltimore Orioles</option><option value="bos">Boston Red Sox</option>
+                            <option value="nyy">New York Yankees</option><option value="tb">Tampa Bay Rays</option>
+                            <option value="tor">Toronto Blue Jays</option><option value="chw">Chicago White Sox</option>
+                            <option value="cle">Cleveland Guardians</option><option value="det">Detroit Tigers</option>
+                            <option value="kc">Kansas City Royals</option><option value="min">Minnesota Twins</option>
+                            <option value="hou">Houston Astros</option><option value="laa">Los Angeles Angels</option>
+                            <option value="oak">Oakland Athletics</option><option value="sea">Seattle Mariners</option>
+                            <option value="tex">Texas Rangers</option><option value="atl">Atlanta Braves</option>
+                            <option value="mia">Miami Marlins</option><option value="nym">New York Mets</option>
+                            <option value="phi">Philadelphia Phillies</option><option value="wsh">Washington Nationals</option>
+                            <option value="chc">Chicago Cubs</option><option value="cin">Cincinnati Reds</option>
+                            <option value="mil">Milwaukee Brewers</option><option value="pit">Pittsburgh Pirates</option>
+                            <option value="stl">St Louis Cardinals</option><option value="ari">Arizona Diamondbacks</option>
+                            <option value="col">Colorado Rockies</option><option value="lad" selected>Los Angeles Dodgers</option>
+                            <option value="sd">San Diego Padres</option><option value="sf">San Francisco Giants</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-block">
+                <div class="search-header-container">
+                    <h2 class="section-title">Live Team Status Reports</h2>
+                    <input type="text" id="news-search" placeholder="🔍 Search live items..." onkeyup="filterNewsSearch()">
+                </div>
+                
+                <div class="headlines-grid" id="news-grid-container">
+                    <div class="sport-card news-item" data-sport="football">
+                        <div class="sport-badge fb-badge">FOOTBALL</div>
+                        <h3><span class="lbl-fb-name">Loading...</span> Insights</h3>
+                        <p class="meta">ESPN API Analytics</p>
+                        <p id="fb-api-desc">Fetching latest roster strategy and team metric data...</p>
+                    </div>
+
+                    <div class="sport-card news-item" data-sport="basketball">
+                        <div class="sport-badge bb-badge">BASKETBALL</div>
+                        <h3><span class="lbl-bb-name">Loading...</span> Focus</h3>
+                        <p class="meta">ESPN API Analytics</p>
+                        <p id="bb-api-desc">Fetching perimeter efficiency metrics and game index updates...</p>
+                    </div>
+
+                    <div class="sport-card news-item" data-sport="baseball">
+                        <div class="sport-badge bs-badge">BASEBALL</div>
+                        <h3><span class="lbl-bs-name">Loading...</span> Standings</h3>
+                        <p class="meta">ESPN API Analytics</p>
+                        <p id="bs-api-desc">Calculating pitch counts and division table layouts...</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <aside class="sidebar">
+            
+            <div class="widget" id="bracket-section">
+                <h3>Playoff Bracket Predictor</h3>
+                <p class="section-desc" style="margin-bottom:15px;">Click your custom team or opponents to advance them to the championship title round!</p>
+                <div class="bracket-wrapper">
+                    <div class="bracket-round">
+                        <div class="bracket-matchup">
+                            <div class="bracket-team lbl-bs-name" id="semi1-t1" onclick="advanceTeam('semi1-t1', 'finals-t1')">Baseball Team</div>
+                            <div class="bracket-team" id="semi1-t2" onclick="advanceTeam('semi1-t2', 'finals-t1')">Wildcard Seed</div>
+                        </div>
+                        <div class="bracket-matchup">
+                            <div class="bracket-team lbl-bb-name" id="semi2-t1" onclick="advanceTeam('semi2-t1', 'finals-t2')">Basketball Team</div>
+                            <div class="bracket-team" id="semi2-t2" onclick="advanceTeam('semi2-t2', 'finals-t2')">Conference Rival</div>
+                        </div>
+                    </div>
+                    <div class="bracket-round finals-round">
+                        <div class="bracket-matchup championship-box">
+                            <div class="bracket-team placeholder-team" id="finals-t1" onclick="advanceTeam('finals-t1', 'champion-display')">???</div>
+                            <div class="bracket-team placeholder-team" id="finals-t2" onclick="advanceTeam('finals-t2', 'champion-display')">???</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bracket-winner-banner">
+                    🏆 Projected Champion: <span id="champion-display">???</span>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Your Team Trophy Tracker</h3>
+                <ul class="calendar-timeline">
+                    <li>🏈 <span class="lbl-fb-name">...</span>: 1 Lombardi Trophy</li>
+                    <li>🏀 <span class="lbl-bb-name">...</span>: Active Divisional Records</li>
+                    <li>⚾ <span class="lbl-bs-name">...</span>: Franchise History Tracked</li>
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sports Central Hub. Live parsing via ESPN Open API Data streams.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
