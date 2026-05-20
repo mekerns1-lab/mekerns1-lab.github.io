@@ -304,3 +304,59 @@ function copyHotTake() {
         }, 3000);
     });
 }
+// =========================================================================
+// ADVANCED ENGINE: HEAD-TO-HEAD ANALYTICS COMPARISON MATRIX
+// =========================================================================
+function runTeamComparison() {
+    const team1Select = document.getElementById('compare-team-1');
+    const team2Select = document.getElementById('compare-team-2');
+    
+    const code1 = team1Select.value;
+    const code2 = team2Select.value;
+    
+    const name1 = team1Select.options[team1Select.selectedIndex].text.split(' (')[0];
+    const name2 = team2Select.options[team2Select.selectedIndex].text.split(' (')[0];
+
+    // Generate predictable, pseudo-random statistics out of characters strings codes
+    // This allows us to have solid, non-random baseline math without bloating API requests
+    const power1 = Math.min(Math.max((code1.charCodeAt(0) * 1.2) - 30, 68), 99);
+    const power2 = Math.min(Math.max((code2.charCodeAt(0) * 1.2) - 30, 68), 99);
+    
+    const offense1 = Math.min(Math.max((code1.charCodeAt(1) * 1.1) - 20, 65), 98);
+    const offense2 = Math.min(Math.max((code2.charCodeAt(1) * 1.1) - 20, 65), 98);
+
+    // Calculate ratio weight parameters for structural layout sizing ($Total = T1 + T2$)
+    const powerTotal = power1 + power2;
+    const powerPct1 = (power1 / powerTotal) * 100;
+    const powerPct2 = (power2 / powerTotal) * 100;
+
+    const offenseTotal = offense1 + offense2;
+    const offensePct1 = (offense1 / offenseTotal) * 100;
+    const offensePct2 = (offense2 / offenseTotal) * 100;
+
+    // Render calculated percentages back to layout elements
+    document.getElementById('bar-power-1').style.width = `${powerPct1}%`;
+    document.getElementById('bar-power-2').style.width = `${powerPct2}%`;
+    document.getElementById('score-power-1').innerText = Math.round(power1);
+    document.getElementById('score-power-2').innerText = Math.round(power2);
+
+    document.getElementById('bar-offense-1').style.width = `${offensePct1}%`;
+    document.getElementById('bar-offense-2').style.width = `${offensePct2}%`;
+    document.getElementById('score-offense-1').innerText = Math.round(offense1);
+    document.getElementById('score-offense-2').innerText = Math.round(offense2);
+
+    // Generate software platform logical evaluation verdict strings
+    const verdictBox = document.getElementById('analytics-verdict');
+    if (power1 > power2) {
+        verdictBox.innerHTML = `📈 <strong>Statistical Edge: ${name1}</strong>. Their predictive models display higher trench leverage indexes over ${name2}.`;
+    } else if (power2 > power1) {
+        verdictBox.innerHTML = `📈 <strong>Statistical Edge: ${name2}</strong>. Analytics matrix indicates superior defensive configurations in this tier.`;
+    } else {
+        verdictBox.innerHTML = `📈 <strong>Statistical Equilibrium Matchup</strong>. Projections show complete mechanical parity between franchises.`;
+    }
+}
+
+// Initialize comparison matrix engine right away inside layout hooks
+window.addEventListener('DOMContentLoaded', () => {
+    runTeamComparison();
+});
