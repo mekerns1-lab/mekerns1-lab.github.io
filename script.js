@@ -135,21 +135,38 @@ function toggleTheme() {
 window.addEventListener('DOMContentLoaded', () => {
     loadSavedUserPreferences();
 });
-/* Skeleton Loader Animation Effects */
-.skeleton-pulse {
-    background: linear-gradient(90deg, var(--card-bg) 25%, var(--border-color) 50%, var(--card-bg) 75%);
-    background-size: 200% 100%;
-    animation: loading-pulse 1.5s infinite linear;
-    color: transparent !important;
-    border-radius: 4px;
-}
+async function fetchLiveSportsAPI(sportKey, targetTeamCode, outputElementId) {
+    const endpointMap = {
+        football: `https://site.api.espn.com/sbin/fast/v1/sports/football/nfl/teams/${targetTeamCode}`,
+        basketball: `https://site.api.espn.com/sbin/fast/v1/sports/basketball/nba/teams/${targetTeamCode}`,
+        baseball: `https://site.api.espn.com/sbin/fast/v1/sports/baseball/mlb/teams/${targetTeamCode}`
+    };
 
-@keyframes loading-pulse {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
+    const targetBox = document.getElementById(outputElementId);
+    // Apply visual skeleton loader class immediately when fetching begins
+    if (targetBox) targetBox.classList.add('skeleton-pulse');
 
-/* Global focus states for better accessibility */
-select:focus, input:focus {
-    outline: 2px solid var(--accent-color);
+    try {
+        const response = await fetch(endpointMap[sportKey]);
+        if (!response.ok) throw new Error('API server pipeline offline');
+        
+        const data = await response.json();
+        const teamObj = data.team;
+        
+        const teamDisplayName = teamObj.displayName;
+        const recordSummary = teamObj.recordSummary || "Data pending game day schedules";
+        const standingSummary = teamObj.standingSummary || "Leagues data parsing optimized";
+
+        if (targetBox) {
+            targetBox.classList.remove('skeleton-pulse'); // Remove animation
+            targetBox.innerText = `Current Form: ${recordSummary}. Standings Context: ${standingSummary}. Currently evaluating operational parameters for training metrics.`;
+        }
+        
+        updateUIHeadersByClassName(`lbl-${sportKey.substring(0,2)}-name`, teamDisplayName);
+        return teamDisplayName;
+
+    } catch (error) {
+        if (targetBox) targetBox.classList.remove('skeleton-pulse');
+        fallbackLocalAPIEngine(sportKey, targetTeamCode, outputElementId);
+    }
 }
